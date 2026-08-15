@@ -5,40 +5,128 @@
     "cliproxy": {
       "baseUrl": "http://127.0.0.1:8317/v1",
       "api": "openai",
-      "auth": { "type": "env", "key": "CLIPROXY_API_KEY" }
+      "auth": {
+        "type": "env",
+        "key": "CLIPROXY_API_KEY"
+      }
     },
     "openrouter": {
       "baseUrl": "https://openrouter.ai/api/v1",
       "api": "openai",
-      "auth": { "type": "env", "key": "OPENROUTER_API_KEY" }
+      "auth": {
+        "type": "env",
+        "key": "OPENROUTER_API_KEY"
+      }
     },
     "kimi": {
       "baseUrl": "https://api.moonshot.cn/v1",
       "api": "openai",
-      "auth": { "type": "env", "key": "KIMI_API_KEY" }
+      "auth": {
+        "type": "env",
+        "key": "KIMI_API_KEY"
+      }
     },
     "groq": {
       "baseUrl": "https://api.groq.com/openai/v1",
       "api": "openai",
-      "auth": { "type": "env", "key": "GROQ_API_KEY" }
+      "auth": {
+        "type": "env",
+        "key": "GROQ_API_KEY"
+      }
+    },
+    "cerebras": {
+      "baseUrl": "https://api.cerebras.ai/v1",
+      "api": "openai",
+      "auth": {
+        "type": "env",
+        "key": "CEREBRAS_API_KEY"
+      }
+    },
+    "mistral": {
+      "baseUrl": "https://api.mistral.ai/v1",
+      "api": "openai",
+      "auth": {
+        "type": "env",
+        "key": "MISTRAL_API_KEY"
+      }
+    },
+    "nvidia": {
+      "baseUrl": "https://integrate.api.nvidia.com/v1",
+      "api": "openai",
+      "auth": {
+        "type": "env",
+        "key": "NVIDIA_API_KEY"
+      }
     },
     "deepseek": {
       "baseUrl": "https://api.deepseek.com/v1",
       "api": "openai",
-      "auth": { "type": "env", "key": "DEEPSEEK_API_KEY" }
+      "auth": {
+        "type": "env",
+        "key": "DEEPSEEK_API_KEY"
+      }
     }
   },
   "tiers": {
-    "SIMPLE":    { "primary": "openrouter/openrouter/free", "fallback": ["openrouter/google/gemma-4-26b-a4b-it:free", "cliproxy/gemini-3.5-flash-low"] },
-    "MEDIUM":    { "primary": "cliproxy/gemini-3.5-flash-low", "fallback": ["cliproxy/gemini-3-flash", "openrouter/openrouter/free"] },
-    "COMPLEX":   { "primary": "cliproxy/gemini-3.6-flash-high", "fallback": ["cliproxy/claude-sonnet-4-6", "cliproxy/gemini-3.7-flash-high"] },
-    "REASONING": { "primary": "cliproxy/claude-opus-4-6-thinking", "fallback": ["cliproxy/gemini-3.6-flash-high", "openrouter/openai/gpt-oss-20b:free"] }
+    "SIMPLE": {
+      "primary": "openrouter/openrouter/free",
+      "fallback": [
+        "groq/llama-3.3-70b-versatile",
+        "cerebras/llama-3.3-70b",
+        "cliproxy/gemini-3.5-flash-low"
+      ]
+    },
+    "MEDIUM": {
+      "primary": "cliproxy/gemini-3.5-flash-low",
+      "fallback": [
+        "groq/llama-3.3-70b-versatile",
+        "openrouter/openrouter/free"
+      ]
+    },
+    "COMPLEX": {
+      "primary": "cliproxy/gemini-3.6-flash-high",
+      "fallback": [
+        "cliproxy/claude-sonnet-4-6",
+        "cliproxy/gemini-3.7-flash-high"
+      ]
+    },
+    "REASONING": {
+      "primary": "cliproxy/claude-opus-4-6-thinking",
+      "fallback": [
+        "cliproxy/gemini-3.6-flash-high",
+        "openrouter/openai/gpt-oss-20b:free"
+      ]
+    }
   },
   "agenticTiers": {
-    "SIMPLE":    { "primary": "openrouter/google/gemma-4-26b-a4b-it:free", "fallback": ["openrouter/openrouter/free", "cliproxy/gemini-3.5-flash-low"] },
-    "MEDIUM":    { "primary": "cliproxy/gemini-3.5-flash-low", "fallback": ["cliproxy/gemini-3-flash", "openrouter/openrouter/free"] },
-    "COMPLEX":   { "primary": "cliproxy/gemini-3.6-flash-high", "fallback": ["cliproxy/claude-sonnet-4-6"] },
-    "REASONING": { "primary": "cliproxy/claude-opus-4-6-thinking", "fallback": ["cliproxy/gemini-3.6-flash-high", "openrouter/openai/gpt-oss-20b:free"] }
+    "SIMPLE": {
+      "primary": "openrouter/google/gemma-4-26b-a4b-it:free",
+      "fallback": [
+        "groq/llama-3.3-70b-versatile",
+        "openrouter/openrouter/free",
+        "cliproxy/gemini-3.5-flash-low"
+      ]
+    },
+    "MEDIUM": {
+      "primary": "cliproxy/gemini-3.5-flash-low",
+      "fallback": [
+        "groq/llama-3.3-70b-versatile",
+        "openrouter/openrouter/free"
+      ]
+    },
+    "COMPLEX": {
+      "primary": "cliproxy/gemini-3.6-flash-high",
+      "fallback": [
+        "cliproxy/claude-sonnet-4-6"
+      ]
+    },
+    "REASONING": {
+      "primary": "cliproxy/claude-opus-4-6-thinking",
+      "fallback": [
+        "cliproxy/gemini-3.6-flash-high",
+        "openrouter/openai/gpt-oss-20b:free"
+      ]
+    }
   },
   "tierBoundaries": {
     "simpleMedium": 0.0,
@@ -46,11 +134,20 @@
     "complexReasoning": 0.15
   },
   "thinking": {
-    "adaptive": ["cliproxy/gemini-3.6-flash-high"],
-    "enabled": { "models": ["cliproxy/gemini-3.6-flash-high"], "budget": 4096 }
+    "adaptive": [
+      "cliproxy/gemini-3.6-flash-high"
+    ],
+    "enabled": {
+      "models": [
+        "cliproxy/gemini-3.6-flash-high"
+      ],
+      "budget": 4096
+    }
   },
   "auth": {
     "default": "env",
-    "env": { "type": "env" }
+    "env": {
+      "type": "env"
+    }
   }
 }
