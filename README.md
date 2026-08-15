@@ -1,10 +1,10 @@
-# FreeRouter — Free, Self-Hosted AI Model Router
+# FreeRouter — self-hosted AI model router
 
 <p align="center">
   <img src="assets/logo.png" width="200" alt="FreeRouter Logo"/>
 </p>
 
-**Stop overpaying for AI. Route every request to the right model — automatically, with your own API keys. No middleman, no markup.**
+Route requests to configured AI providers using your own API keys. FreeRouter keeps provider selection and credentials on your machine.
 
 [![OpenClaw](https://img.shields.io/badge/Built%20for-OpenClaw-blue)](https://github.com/openclaw/openclaw)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
@@ -14,7 +14,7 @@
 
 ## Why FreeRouter?
 
-**You already have API keys. Why pay someone else to use them?**
+FreeRouter is intended for people who already have provider accounts and want routing decisions to stay in their own deployment.
 
 | Pain | How FreeRouter Fixes It |
 |------|------------------------|
