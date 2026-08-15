@@ -1,0 +1,56 @@
+{
+  "port": 18800,
+  "host": "127.0.0.1",
+  "providers": {
+    "cliproxy": {
+      "baseUrl": "http://127.0.0.1:8317/v1",
+      "api": "openai",
+      "auth": { "type": "env", "key": "CLIPROXY_API_KEY" }
+    },
+    "openrouter": {
+      "baseUrl": "https://openrouter.ai/api/v1",
+      "api": "openai",
+      "auth": { "type": "env", "key": "OPENROUTER_API_KEY" }
+    },
+    "kimi": {
+      "baseUrl": "https://api.moonshot.cn/v1",
+      "api": "openai",
+      "auth": { "type": "env", "key": "KIMI_API_KEY" }
+    },
+    "groq": {
+      "baseUrl": "https://api.groq.com/openai/v1",
+      "api": "openai",
+      "auth": { "type": "env", "key": "GROQ_API_KEY" }
+    },
+    "deepseek": {
+      "baseUrl": "https://api.deepseek.com/v1",
+      "api": "openai",
+      "auth": { "type": "env", "key": "DEEPSEEK_API_KEY" }
+    }
+  },
+  "tiers": {
+    "SIMPLE":    { "primary": "openrouter/openrouter/free", "fallback": ["openrouter/google/gemma-4-26b-a4b-it:free", "cliproxy/gemini-3.5-flash-low"] },
+    "MEDIUM":    { "primary": "cliproxy/gemini-3.5-flash-low", "fallback": ["cliproxy/gemini-3-flash", "openrouter/openrouter/free"] },
+    "COMPLEX":   { "primary": "cliproxy/gemini-3.6-flash-high", "fallback": ["cliproxy/claude-sonnet-4-6", "cliproxy/gemini-3.7-flash-high"] },
+    "REASONING": { "primary": "cliproxy/claude-opus-4-6-thinking", "fallback": ["cliproxy/gemini-3.6-flash-high", "openrouter/openai/gpt-oss-20b:free"] }
+  },
+  "agenticTiers": {
+    "SIMPLE":    { "primary": "openrouter/google/gemma-4-26b-a4b-it:free", "fallback": ["openrouter/openrouter/free", "cliproxy/gemini-3.5-flash-low"] },
+    "MEDIUM":    { "primary": "cliproxy/gemini-3.5-flash-low", "fallback": ["cliproxy/gemini-3-flash", "openrouter/openrouter/free"] },
+    "COMPLEX":   { "primary": "cliproxy/gemini-3.6-flash-high", "fallback": ["cliproxy/claude-sonnet-4-6"] },
+    "REASONING": { "primary": "cliproxy/claude-opus-4-6-thinking", "fallback": ["cliproxy/gemini-3.6-flash-high", "openrouter/openai/gpt-oss-20b:free"] }
+  },
+  "tierBoundaries": {
+    "simpleMedium": 0.0,
+    "mediumComplex": 0.03,
+    "complexReasoning": 0.15
+  },
+  "thinking": {
+    "adaptive": ["cliproxy/gemini-3.6-flash-high"],
+    "enabled": { "models": ["cliproxy/gemini-3.6-flash-high"], "budget": 4096 }
+  },
+  "auth": {
+    "default": "env",
+    "env": { "type": "env" }
+  }
+}
