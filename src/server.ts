@@ -396,10 +396,16 @@ async function handleRequest(req: IncomingMessage, res: ServerResponse) {
   const method = req.method ?? "GET";
   const url = req.url ?? "/";
 
-  // CORS headers
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  // CORS headers — opt-in via CLAWROUTER_CORS_ORIGIN. This is a localhost
+  // proxy: a wildcard ACAO lets any website the user visits read /v1/models,
+  // /stats and relay completions through this machine from the browser.
+  const corsOrigin = process.env.CLAWROUTER_CORS_ORIGIN;
+  if (corsOrigin) {
+    res.setHeader("Access-Control-Allow-Origin", corsOrigin);
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    res.setHeader("Vary", "Origin");
+  }
 
   if (method === "OPTIONS") {
     res.writeHead(204);
